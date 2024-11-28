@@ -1,0 +1,46 @@
+.navbar {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body{
+    padding-top: 30px;
+    background: linear-gradient(to right, #6b11cb87, #7fa4a460);
+}
+.card {
+    color: rgba(128, 128, 128, 0.715);
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#addTodoBtn {
+    background-color: rgba(128, 128, 128, 0.715);
+    display: block;
+    margin: 0 auto;
+}
+
+#addTodoForm {
+    margin-top: 10px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-group {
+    max-width: 500px;
+    margin: 0 auto;
+}

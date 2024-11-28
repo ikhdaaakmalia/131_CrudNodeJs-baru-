@@ -1,6 +1,8 @@
 const express = require('express');
 const todoRoutes = require('./routes/tododb.js');
 const app = express();
+const path = require('path');
+const expressLayouts = require('express-ejs-layouts');
 
 require('dotenv').config();
 const port = process.env.PORT;
@@ -12,6 +14,8 @@ const bcrypt = require('bcryptjs');
 
 const expressLayout = require('express-ejs-layouts');
 const db = require('./database/db.js');
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -28,6 +32,11 @@ app.use(session({
     saveUninitialized: false,
     cookie: { secure: false } // Set ke true jika menggunakan HTTPS
 }));
+
+app.get('/signup', (req, res) => {
+    res.render('signup', { layout: false, title: 'Sign Up Page' });
+});
+
 
 app.use('/', authRoutes);
 
@@ -60,6 +69,3 @@ app.use((req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
 });
-
-
-

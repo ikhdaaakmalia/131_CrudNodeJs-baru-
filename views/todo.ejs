@@ -1,8 +1,15 @@
+<head>
+    <link rel="stylesheet" href="/css/todo.css">
+</head>
+
 <div class="container mt-5">
     <h1 class="text-center">Todo List</h1>
 
-    <!-- Form to Add New Todo -->
-    <form id="addTodoForm" class="my-4">
+    <!-- Button to Add New Todo -->
+    <button id="addTodoBtn" class="btn btn-primary mb-4">Add Todo</button>
+
+    <!-- Form to Add New Todo (Initially Hidden) -->
+    <form id="addTodoForm" class="my-4" style="display: none;">
         <div class="input-group">
             <input type="text" id="newTask" class="form-control" placeholder="Add a new task..." required>
             <div class="input-group-append">
@@ -12,19 +19,21 @@
     </form>
 
     <!-- List of Todos -->
-    <ul id="todoList" class="list-group">
-        <% todos.forEach(todo=> { %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span class="<%= todo.completed ? 'completed' : '' %>">
-                    <%= todo.task %>
-                </span>
-                <div>
-                    <button class="btn btn-sm btn-success mr-2 editBtn" data-id="<%= todo.id %>">Edit</button>
-                    <button class="btn btn-sm btn-danger deleteBtn" data-id="<%= todo.id %>">Delete</button>
+    <div id="todoList" class="row">
+        <% todos.forEach(todo => { %>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= todo.task %></h5>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <button class="btn btn-sm btn-success mr-2 editBtn" data-id="<%= todo.id %>">Edit</button>
+                        <button class="btn btn-sm btn-danger deleteBtn" data-id="<%= todo.id %>">Delete</button>
+                    </div>
                 </div>
-            </li>
-            <% }); %>
-    </ul>
+            </div>
+        <% }); %>
+    </div>
 
     <!-- Edit Todo Modal -->
     <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -51,6 +60,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
+        // Toggle the visibility of the Add Todo Form
+        $('#addTodoBtn').on('click', function() {
+            $('#addTodoForm').toggle();  // Show/Hide the form
+        });
+
         // Add new todo
         $('#addTodoForm').on('submit', function (e) {
             e.preventDefault();
@@ -87,7 +101,7 @@
         let editId;
         $('.editBtn').on('click', function () {
             editId = $(this).data('id');
-            const currentTask = $(this).closest('li').find('span').text();
+            const currentTask = $(this).closest('.card').find('.card-title').text();
             $('#editTask').val(currentTask);
             $('#editModal').modal('show');
         });
